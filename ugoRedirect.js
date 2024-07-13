@@ -1,4 +1,5 @@
 const uGoAdminUrl = "https://whatevertheugoadminurlis.com";
+const uGoAdminExpandUrl = uGoAdminUrl + "/expand/";
 const uGoApiUrl = "https://localhost:7077/GetUgoLink/";
 
 window.onload = async function(){
@@ -9,6 +10,7 @@ window.onload = async function(){
 
     //For testing only
     var url = new URL('https://uGO/mypage/dosomething?value=glen#myPlaceOnPage');
+    //var url = new URL('https://uGO/mypage+');
     document.getElementById('myText').value = this.getUrlParts(url);
     let redirectUrl = await this.getRedirectUrl(url);
     document.getElementById('myText2').value = redirectUrl;
@@ -20,18 +22,24 @@ async function getRedirectUrl(url){
     if(url.pathname && url.pathname.length > 1){
         //Get what the user entered after ugo/
         const pathText = url.pathname.substring(1);
-        //Get the shortened or customised link
-        const uGoLink = pathText.substring(0, pathText.indexOf('/'));
-        //Get the rest of what the user entered
-        const suffix = pathText.substring(pathText.indexOf('/'));
-        //Try to get the original link from ugo
-        await this.getUgoUrl(uGoLink).then(function(result){
-            //If we got something
-            if(result){
-                //Make the correct link to redirect to
-                retVal = result + suffix + url.search + url.hash;
-            }
-        }); 
+        //If this is an expand
+        if(pathText.endsWith("+")){
+            retVal = uGoAdminExpandUrl + pathText.substring(0, pathText.length -1);
+        }
+        else{
+            //Get the shortened or customised link
+            const uGoLink = pathText.substring(0, pathText.indexOf('/'));
+            //Get the rest of what the user entered
+            const suffix = pathText.substring(pathText.indexOf('/'));
+            //Try to get the original link from ugo
+            await this.getUgoUrl(uGoLink).then(function(result){
+                //If we got something
+                if(result){
+                    //Make the correct link to redirect to
+                    retVal = result + suffix + url.search + url.hash;
+                }
+            }); 
+        }
     }
     return retVal;
 }
