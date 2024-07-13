@@ -1,10 +1,11 @@
-const uGoAdminLink = "https://whatevertheugoadminurlis.com";
+const uGoAdminUrl = "https://whatevertheugoadminurlis.com";
 const uGoApiUrl = "https://localhost:7077/GetUgoLink/";
 
 window.onload = async function(){
-    //We'll actually do this:
-    //const url = new URL(window.location.href);
-    //window.location.replace(getRedirectUrl(url));
+    /* We'll actually do this:
+    const url = new URL(window.location.href);
+    window.location.replace(this.getRedirectUrl(url));
+    */
 
     //For testing only
     var url = new URL('https://uGO/mypage/dosomething?value=glen#myPlaceOnPage');
@@ -14,7 +15,7 @@ window.onload = async function(){
 }
 
 async function getRedirectUrl(url){
-    let retVal = this.uGoAdminLink;
+    let retVal = uGoAdminUrl;
     //If user hasn't entered only ugo or ugo/
     if(url.pathname && url.pathname.length > 1){
         //Get what the user entered after ugo/
@@ -37,7 +38,7 @@ async function getRedirectUrl(url){
 
 async function getUgoUrl(uGoLink){
     try{
-        const response = await fetch(this.uGoApiUrl + uGoLink);
+        const response = await fetch(uGoApiUrl + uGoLink);
         if(response.ok){
             return await response.text();
         }
@@ -48,6 +49,7 @@ async function getUgoUrl(uGoLink){
     }
 }
 
+//For testing only
 function getUrlParts(url){
     return 'href: ' + url.href + '\n' + 
            'host: ' + url.host + '\n' +
