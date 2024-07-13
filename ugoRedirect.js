@@ -10,6 +10,9 @@ window.onload = async function(){
 
     //For testing only
     var url = new URL('https://uGO/mypage/dosomething?value=glen#myPlaceOnPage');
+    //var url = new URL('https://uGO/mypage/dosomething');
+    //var url = new URL('https://uGO/mypage/');
+    //var url = new URL('https://uGO/mypage');
     //var url = new URL('https://uGO/mypage+');
     document.getElementById('myText').value = this.getUrlParts(url);
     let redirectUrl = await this.getRedirectUrl(url);
@@ -28,7 +31,13 @@ async function getRedirectUrl(url){
         }
         else{
             //Get the shortened or customised link
-            const uGoLink = pathText.substring(0, pathText.indexOf('/'));
+            let uGoLink = "";
+            if(pathText.indexOf("/") > -1){
+                uGoLink = pathText.substring(0, pathText.indexOf('/'));
+            }
+            else{
+                uGoLink = pathText;
+            }
             //Get the rest of what the user entered
             const suffix = pathText.substring(pathText.indexOf('/'));
             //Try to get the original link from ugo
@@ -52,7 +61,7 @@ async function getUgoUrl(uGoLink){
         }
         return null;
     }
-    catch(ex){
+    catch{
         return null;
     }
 }
