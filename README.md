@@ -8,8 +8,7 @@ On my PC this is just minimal api that always returns 'https://pretendyurl.com/p
 **const uGoApiUrl = "https://localhost:7077/GetUgoLink/";**
 
 Should we just do this if user has entered anything after '+'?
-**
-if(pathText.endsWith("+")){
-    retVal = uGoAdminExpandUrl + pathText.substring(0, pathText.length -1);
-}
-**
+<br>
+**if(pathText.endsWith("+")){<br>
+    &emsp;&ensp;retVal = uGoAdminExpandUrl + pathText.substring(0, pathText.length -1);<br>
+}**
