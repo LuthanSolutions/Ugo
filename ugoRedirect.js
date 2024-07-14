@@ -1,5 +1,6 @@
 const uGoAdminUrl = "https://whatevertheugoadminurlis.com";
 const uGoAdminExpandUrl = uGoAdminUrl + "/expand/";
+
 const uGoApiUrl = "https://localhost:7077/GetUgoLink/";
 
 window.onload = async function(){
@@ -14,6 +15,7 @@ window.onload = async function(){
     //var url = new URL('https://uGO/mypage/');
     //var url = new URL('https://uGO/mypage');
     //var url = new URL('https://uGO/mypage+');
+
     document.getElementById('myText').value = this.getUrlParts(url);
     let redirectUrl = await this.getRedirectUrl(url);
     document.getElementById('myText2').value = redirectUrl;
